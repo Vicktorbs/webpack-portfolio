@@ -1,6 +1,7 @@
 const path = require('path');
 // Plugin agregado al proyecto
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -21,6 +22,14 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            // Regla para reconocer el CSS
+            {
+                test: /\.css|styl$/i,
+                use: [MiniCssExtractPlugin.loader, 
+                'css-loader',
+                'stylus-loader'
+                ]
             }
         ]
     },
@@ -29,6 +38,7 @@ module.exports = {
             inject: true,
             template: './public/index.html',
             filename: 'index.html'
-        })
+        }),
+        new MiniCssExtractPlugin(),
     ]
 }

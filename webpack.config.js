@@ -3,7 +3,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const { dirname } = require('path');
 
 module.exports = {
     entry: './src/index.js',
@@ -28,10 +27,14 @@ module.exports = {
             // Regla para reconocer el CSS
             {
                 test: /\.css|styl$/i,
-                use: [MiniCssExtractPlugin.loader, 
+                use: [MiniCssExtractPlugin.loader,
                 'css-loader',
                 'stylus-loader'
                 ]
+            },
+            {
+                test: /\.png/,
+                type: 'asset/resource'
             }
         ]
     },
@@ -39,8 +42,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             inject: true,
             template: './public/index.html',
-            filename: 'index.html'
-        }),
+            filename: './index.html'
+            }),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
             patterns: [
